@@ -2,6 +2,8 @@
 Given an integer array and another integer element.
 The task is to find if the given element is present in array or not.
 
+GFG Link :- https://practice.geeksforgeeks.org/problems/search-an-element-in-an-array-1587115621/1?page=1&difficulty[]=-1&category[]=Arrays&sortBy=submissions
+
 Your Task:
 The task is to complete the function search() which takes the array arr[], its size N and the
 element X as inputs and returns the index of first occurrence of X in the given array.
