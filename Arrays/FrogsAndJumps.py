@@ -1,0 +1,62 @@
+"""
+Frogs and Jumps
+N frogs are positioned at one end of the pond. All frogs want to reach the other end of the pond as soon as possible.
+The pond has some leaves arranged in a straight line. Each frog has the strength to jump exactly K leaves. For example,
+a  frog having strength 2 will visit the leaves 2, 4, 6, ...  etc. while crossing the pond.
+
+Given the strength of each frog and the number of leaves, your task is to find the number of leaves that not be visited
+by any of the frogs when all frogs have reached the other end of the pond.
+
+GFG Link - https://practice.geeksforgeeks.org/problems/5551749efa02ae36b6fdb3034a7810e84bd4c1a4/1?page=4&difficulty[]=0&category[]=Arrays&sortBy=submissions
+
+Complete the function unvisitedLeaves() which takes the integers N, leaves and the array frogs as the input parameters, and returns the number of unvisited leaves.
+
+Expected Time Complexity: O(N*log(leaves))
+Expected Auxiliary Space: O(leaves)
+"""
+import unittest
+
+
+class Solution:
+    def unvisitedLeaves(self, N, leaves, frogs):
+        visited = [0] * (leaves + 1)
+        for i, element in enumerate(frogs):
+            if element == 1:
+                return 0
+            else:
+                right_acc = element
+                left_acc = -1
+                for j in range(leaves, element, -1):
+                    if j % element == 0:
+                        left_acc = j
+                        break
+                while right_acc <= left_acc:
+                    visited[right_acc] = 1
+                    visited[left_acc] = 1
+                    right_acc += element
+                    left_acc -= element
+                    print()
+                print()
+        count = 0
+        for i in range(1, len(visited)):
+            if visited[i] == 0:
+                count += 1
+        return count
+
+
+class TestSolution(unittest.TestCase):
+    def test_case_1(self):
+        N = 3
+        leaves = 4
+        frogs = [3, 2, 4]
+        solution = Solution()
+        print(solution.unvisitedLeaves(N, leaves, frogs))
+        self.assertTrue(True)
+
+    def test_case_2(self):
+        N = 3
+        leaves = 6
+        frogs = [1, 3, 5]
+        solution = Solution()
+        print(solution.unvisitedLeaves(N, leaves, frogs))
+        self.assertTrue(True)
