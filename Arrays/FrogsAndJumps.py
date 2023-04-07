@@ -19,29 +19,19 @@ import unittest
 
 class Solution:
     def unvisitedLeaves(self, N, leaves, frogs):
-        visited = [0] * (leaves + 1)
-        for i, element in enumerate(frogs):
-            if element == 1:
-                return 0
-            else:
-                right_acc = element
-                left_acc = -1
-                for j in range(leaves, element, -1):
-                    if j % element == 0:
-                        left_acc = j
-                        break
-                while right_acc <= left_acc:
-                    visited[right_acc] = 1
-                    visited[left_acc] = 1
-                    right_acc += element
-                    left_acc -= element
-                    print()
-                print()
-        count = 0
-        for i in range(1, len(visited)):
-            if visited[i] == 0:
-                count += 1
-        return count
+
+        leaveStatus = [0 for j in range(leaves + 1)]
+        for i in range(N):
+            if frogs[i] <= leaves and leaveStatus[frogs[i]] == 0:
+                for j in range(frogs[i], leaves + 1, frogs[i]):
+                    leaveStatus[j] = 1
+
+        leafCount = leaves
+        for i in leaveStatus:
+            if (i):
+                leafCount -= 1
+
+        return leafCount
 
 
 class TestSolution(unittest.TestCase):
@@ -57,6 +47,14 @@ class TestSolution(unittest.TestCase):
         N = 3
         leaves = 6
         frogs = [1, 3, 5]
+        solution = Solution()
+        print(solution.unvisitedLeaves(N, leaves, frogs))
+        self.assertTrue(True)
+
+    def test_case_3(self):
+        N = 3
+        leaves = 4
+        frogs = [3, 2, 4]
         solution = Solution()
         print(solution.unvisitedLeaves(N, leaves, frogs))
         self.assertTrue(True)
